@@ -34,6 +34,8 @@ defmodule ShittyLinqEx do
   end
 end
 
+#The sum function, finds the sum of an entire list of numeric data
+
 def sum([]) do
     0
     end
