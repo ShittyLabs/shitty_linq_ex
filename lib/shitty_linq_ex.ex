@@ -47,9 +47,41 @@ defmodule ShittyLinqEx do
 
   def sum([]) do
       0
-      end
+  end
     
   def sum([h|t]) do
       h + sum(t)
-      end
+  end
+      
+#The concat() function
+  
+  @doc """
+  Places the elements of two lists into one(concatenate)
+  
+  ##Examples
+  
+    iex> a = [1, 2, 3]
+    iex> b = [4, 5, 6]
+    iex> shittyLINQ.concat(a, b)
+    [1, 2, 3, 4, 5, 6] 
+  """
+  def concat(list1, list2) do
+        list1 ++ list2
+  end
+  #The concat() function
+  
+  @doc """
+  Places a new element at the end of an existing list
+  
+  ##Examples
+  
+    iex> a = [1, 2, 3]
+    iex> b = shittyLINQ.append(a, 4)
+    [1, 2, 3, 4]
+    iex> c = shittyLINQ.append(b, 327)
+    [1, 2, 3, 4, 327]
+  """
+  def append(list, new) do
+      list ++ [new]
+  end
 end
