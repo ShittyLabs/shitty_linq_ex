@@ -13,7 +13,8 @@ defmodule ShittyLinqEx do
 
   ## Examples
 
-    iex> ShittyLinqEx.where([1, 2, 3], fn x -> rem(x, 2) == 0 end)
+    iex> import ShittyLinqEx, only: [where: 2]
+    iex> where([1, 2, 3], fn x -> rem(x, 2) == 0 end)
     [2]
 
   """
