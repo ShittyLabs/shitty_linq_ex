@@ -32,14 +32,24 @@ defmodule ShittyLinqEx do
   defp where_list([], _fun) do
     []
   end
-end
 
-#The sum function, finds the sum of an entire list of numeric data
+  #The sum() function
+  
+  @doc """
+  Finds the sum of all values in a list with numeric elements.
+  
+  ##Examples
+  
+    iex> list = [1, 2, 3]
+    iex> shittyLINQ.sum(list)
+    6
+  """
 
-def sum([]) do
-    0
-    end
+  def sum([]) do
+      0
+      end
     
-def sum([h|t]) do
-    h + sum(t)
-    end
+  def sum([h|t]) do
+      h + sum(t)
+      end
+end
