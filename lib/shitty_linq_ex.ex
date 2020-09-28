@@ -41,7 +41,7 @@ defmodule ShittyLinqEx do
   ##Examples
   
     iex> list = [1, 2, 3]
-    iex> shittyLINQ.sum(list)
+    iex> shittyLinqEx.sum(list)
     6
   """
 
@@ -77,12 +77,27 @@ defmodule ShittyLinqEx do
   ##Examples
   
     iex> a = [1, 2, 3]
-    iex> b = shittyLINQ.append(a, 4)
+    iex> b = shittyLinqEx.append(a, 4)
     [1, 2, 3, 4]
-    iex> c = shittyLINQ.append(b, 327)
+    iex> c = shittyLinqEx.append(b, 327)
     [1, 2, 3, 4, 327]
   """
   def append(list, new) do
       list ++ [new]
   end
+  
+  #The count() function
+  @doc """
+  Finds the number of elements in a list
+  
+  ##Examples
+  
+    iex> a = [1, 2, 3]
+    iex> shittyLinqEx.count(a)
+    3
+  """
+  def count(list) do
+        length(list)
+  end
+  
 end
