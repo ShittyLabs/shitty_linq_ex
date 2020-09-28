@@ -68,7 +68,8 @@ defmodule ShittyLinqEx do
   def concat(list1, list2) do
         list1 ++ list2
   end
-  #The concat() function
+  
+  #The append() function
   
   @doc """
   Places a new element at the end of an existing list
