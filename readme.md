@@ -30,3 +30,27 @@ import ShittyLinqEx, only: [where: 2, take: 2, aggregate: 2]
 |> aggregate(fn (a, b) -> a + b end)
 // <- 10
 ```
+
+## Contributing
+
+Please see our [Code of Conduct](./code-of-conduct.md) and [Contributing](./contributing.md) guide before beginning.
+
+Below is an example of what adding a new method should look like.
+
+```elixir
+@doc"""
+Calculates the value of the nth Fibonacci number.
+
+## Examples
+
+  iex> Enum.map(0..5, &fib/1)
+  [1, 1, 2, 3, 5, 8]
+
+"""
+def fib(0), do: 1
+def fib(1), do: 1
+def fib(n), do: fib(1, 1, n)
+
+defp fib(last, _prev, 1), do: last
+defp fib(last, prev, n), do: fib(last + prev, last, n - 1)
+```
