@@ -33,7 +33,7 @@ import ShittyLinqEx, only: [where: 2, take: 2, aggregate: 2]
 
 ## Contributing
 
-Please see our [Code of Conduct](./code-of-conduct.md) and [Contributing](./contributing.md) guide before beginning.
+Please see our [Code of Conduct](./code_of_conduct.md) and [Contributing](./contributing.md) guide before beginning.
 
 Below is an example of what adding a new method should look like.
 
