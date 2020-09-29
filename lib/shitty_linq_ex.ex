@@ -100,4 +100,20 @@ defmodule ShittyLinqEx do
         length(list)
   end
   
+  #Average
+
+    def average([]) do
+        0
+    end
+
+    def average(list) do
+        sum(list) / count(list)
+    end
+
+    #Union
+
+    def union([h1|t1], [h2|t2]) do
+        where(concat([h1|t1], [h2|t2])
+    end
+  
 end
