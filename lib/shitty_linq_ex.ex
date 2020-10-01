@@ -3,15 +3,13 @@ defmodule ShittyLinqEx do
   Documentation for `ShittyLinqEx`.
   """
   
-  #The sum() function
-  
   @doc """
   Finds the sum of all values in a list with numeric elements.
   
-  ##Examples
+  ## Examples
   
     iex> list = [1, 2, 3]
-    iex> shittyLinqEx.sum(list)
+    iex> ShittyLinqEx.sum(list)
     6
   """
 
@@ -46,12 +44,8 @@ defmodule ShittyLinqEx do
     [0, 20, 15, 40]
 
   """
-  def where(source, predicate) when is_list(source) and is_function(predicate, 1) do
+  def where(source, predicate) when is_list(source) do
     where_list(source, predicate)
-  end
-
-  def where(source, predicate) when is_list(source) and is_function(predicate, 2) do
-    where_list(source, predicate, 0)
   end
 
   defp where_list([head | tail], fun) do
@@ -65,14 +59,4 @@ defmodule ShittyLinqEx do
     []
   end
 
-  defp where_list([head | tail], fun, index) do
-    case fun.(head, index) do
-      true -> [head | where_list(tail, fun, index + 1)]
-      _ -> where_list(tail, fun, index + 1)
-    end
-  end
-
-  defp where_list([], _fun, _index) do
-    []
-  end
 end
