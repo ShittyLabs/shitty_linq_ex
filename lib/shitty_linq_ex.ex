@@ -2,7 +2,27 @@ defmodule ShittyLinqEx do
   @moduledoc """
   Documentation for `ShittyLinqEx`.
   """
+  
+  #The sum() function
+  
+  @doc """
+  Finds the sum of all values in a list with numeric elements.
+  
+  ##Examples
+  
+    iex> list = [1, 2, 3]
+    iex> shittyLinqEx.sum(list)
+    6
+  """
 
+  def sum([]) do
+      0
+  end
+    
+  def sum([h|t]) do
+      h + sum(t)
+  end
+      
   @doc """
   Filters a sequence of values based on a predicate.
 
@@ -33,24 +53,4 @@ defmodule ShittyLinqEx do
     []
   end
 
-  #The sum() function
-  
-  @doc """
-  Finds the sum of all values in a list with numeric elements.
-  
-  ##Examples
-  
-    iex> list = [1, 2, 3]
-    iex> shittyLinqEx.sum(list)
-    6
-  """
-
-  def sum([]) do
-      0
-  end
-    
-  def sum([h|t]) do
-      h + sum(t)
-  end
-      
 end
