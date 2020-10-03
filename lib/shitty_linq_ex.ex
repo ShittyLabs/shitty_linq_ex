@@ -171,22 +171,6 @@ defmodule ShittyLinqEx do
   def reverse(list) when is_list(list), do: reverse(list, [])
   def reverse([head | tail], acc), do: reverse(tail, [head | acc])
   def reverse([], acc), do: acc
-  
-  @doc """
-  Places a new element at the end of an existing list
-  
-  ## Examples
-  
-    iex> a = [1, 2, 3]
-    iex> b = ShittyLinqEx.append(a, 4)
-    [1, 2, 3, 4]
-    iex> c = ShittyLinqEx.append(b, 327)
-    [1, 2, 3, 4, 327]
-  """
-
-  def append(list, new) do
-    list ++ [new]
-  end
 
   @doc """
   Returns the first element of a sequence.
@@ -220,6 +204,27 @@ defmodule ShittyLinqEx do
   end
 
   def first([], _func, _value), do: nil
+
+  @doc """
+  Finds the intersection of 2 lists(where they have elements in common)
+
+  ## Examples:
+
+    iex> a = [1, 2, 3, 4]
+    iex> b = [2, 3, 4, 5]
+    iex> c = ShittyLinqEx.intersect(a, b)
+    [2, 3, 4]
+
+    iex> a = [6, 42, 2]
+    iex> b = [73, 37, 1]
+    iex> c = ShittyLinqEx.intersect(a, b)
+    []
+  """
+
+  def intersect(list1, list2) do
+      list3 = list1 -- list2
+      list4 = list1 -- list3
+  end
 
   @doc """
   Filters a sequence of values based on a predicate.
