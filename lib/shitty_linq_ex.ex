@@ -286,6 +286,26 @@ defmodule ShittyLinqEx do
   def sum([h|t]) do
     h + sum(t)
   end
+  
+  @doc """
+
+  Finds the union of two sets(combines both sets and excludes duplicates)
+
+  ## Examples
+
+    iex> a = [1, 37, 73]
+    iex> b = [1, 37, 97, 79]
+    iex> ShittyLinqEx.union(a, b)
+    [1, 37, 73, 97, 79]
+  """
+
+  def union(a, b) do
+      c = a -- b
+      d = b -- a
+      e = c ++ d
+      f = a -- c
+      g = f ++ e
+  end
 
   defp where_list([head | tail], fun) do
     case fun.(head) do
