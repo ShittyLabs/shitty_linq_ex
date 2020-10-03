@@ -210,6 +210,8 @@ defmodule ShittyLinqEx do
   ## Parameters
 
   - `list`: A sequence of values of which the first element should be returned.
+  - `predicate`: A function to check for each element
+  - `value`: A value which will be checked in the predicate function
 
   ## Returns
 
