@@ -171,6 +171,22 @@ defmodule ShittyLinqEx do
   def reverse(list) when is_list(list), do: reverse(list, [])
   def reverse([head | tail], acc), do: reverse(tail, [head | acc])
   def reverse([], acc), do: acc
+  
+  @doc """
+  Places a new element at the end of an existing list
+  
+  ## Examples
+  
+    iex> a = [1, 2, 3]
+    iex> b = ShittyLinqEx.append(a, 4)
+    [1, 2, 3, 4]
+    iex> c = ShittyLinqEx.append(b, 327)
+    [1, 2, 3, 4, 327]
+  """
+
+  def append(list, new) do
+    list ++ [new]
+  end
 
   @doc """
   Returns the first element of a sequence.
