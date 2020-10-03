@@ -204,24 +204,6 @@ defmodule ShittyLinqEx do
   end
 
   def first([], _func, _value), do: nil
-  
-  @doc """
-  Finds the sum of all values in a list with numeric elements.
-  
-  ## Examples
-  
-    iex> list = [1, 2, 3]
-    iex> ShittyLinqEx.sum(list)
-    6
-  """
-
-  def sum([]) do
-      0
-  end
-    
-  def sum([h|t]) do
-    h + sum(t)
-  end
 
   @doc """
   Filters a sequence of values based on a predicate.
@@ -264,6 +246,24 @@ defmodule ShittyLinqEx do
 
   defp aggregate_range_dec(first, last, seed, func) do
     aggregate_range_dec(first - 1, last, func.(first, seed), func)
+  end
+
+  @doc """
+  Finds the sum of all values in a list with numeric elements.
+  
+  ## Examples
+  
+    iex> list = [1, 2, 3]
+    iex> ShittyLinqEx.sum(list)
+    6
+  """
+
+  def sum([]) do
+      0
+  end
+    
+  def sum([h|t]) do
+    h + sum(t)
   end
 
   defp where_list([head | tail], fun) do
