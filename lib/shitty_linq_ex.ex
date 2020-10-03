@@ -205,6 +205,33 @@ defmodule ShittyLinqEx do
   def reverse([], acc), do: acc
 
   @doc """
+  Returns the first element of a sequence.
+
+  ## Parameters
+
+  - `list`: A sequence of values of which the first element should be returned.
+
+  ## Returns
+
+  First value of the input sequence.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [first: 1]
+    iex> first(["A", "B", "C"])
+    "A"
+
+    iex> import ShittyLinqEx, only: [first: 1]
+    iex> first([42, "orange", ":atom"])
+    42
+
+  """
+
+  def first(list) when is_list(list), do: List.first(list)
+  def first([]), do: nil
+  def first(nil), do: nil
+
+  @doc """
   Filters a sequence of values based on a predicate.
 
   ## Parameters
