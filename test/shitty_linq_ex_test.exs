@@ -36,5 +36,17 @@ defmodule ShittyLinqExTest do
     test "nil value" do
       assert ShittyLinqEx.first(nil) == nil
     end
+
+    test "normal list with predicate matching any value" do
+      assert ShittyLinqEx.first([4, 2, 3], &>/2, 1) == 4
+    end
+
+    test "normal list with predicate not matching any value" do
+      assert ShittyLinqEx.first([4, 2, 3], &>/2, 5) == nil
+    end
+
+    test "normal list with invalid value" do
+      assert ShittyLinqEx.first([4, 2, 3], &>/2, "a") == nil
+    end
   end
 end

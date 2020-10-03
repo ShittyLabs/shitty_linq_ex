@@ -225,11 +225,24 @@ defmodule ShittyLinqEx do
     iex> first([42, "orange", ":atom"])
     42
 
+    iex> import ShittyLinqEx, only: [first: 3]
+    iex> first([4, 2, 3], &>/2, 1)
+    4
+
   """
 
   def first(list) when is_list(list), do: List.first(list)
   def first([]), do: nil
   def first(nil), do: nil
+
+  def first([head | tail], func, value) when is_list(tail) and is_function(func, 2) do
+    case func.(head, value) do
+      true -> head
+      false -> first(tail, func, value)
+    end
+  end
+
+  def first([], _func, _value), do: nil
 
   @doc """
   Filters a sequence of values based on a predicate.
