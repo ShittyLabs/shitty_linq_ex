@@ -206,27 +206,6 @@ defmodule ShittyLinqEx do
   def first([], _func, _value), do: nil
 
   @doc """
-  Finds the intersection of 2 lists(where they have elements in common)
-
-  ## Examples:
-
-    iex> a = [1, 2, 3, 4]
-    iex> b = [2, 3, 4, 5]
-    iex> c = ShittyLinqEx.intersect(a, b)
-    [2, 3, 4]
-
-    iex> a = [6, 42, 2]
-    iex> b = [73, 37, 1]
-    iex> c = ShittyLinqEx.intersect(a, b)
-    []
-  """
-
-  def intersect(list1, list2) do
-      list3 = list1 -- list2
-      list4 = list1 -- list3
-  end
-
-  @doc """
   Filters a sequence of values based on a predicate.
   ## Parameters
   - `source`: an enumerable to filter.
@@ -285,26 +264,6 @@ defmodule ShittyLinqEx do
     
   def sum([h|t]) do
     h + sum(t)
-  end
-  
-  @doc """
-
-  Finds the union of two sets(combines both sets and excludes duplicates)
-
-  ## Examples
-
-    iex> a = [1, 37, 73]
-    iex> b = [1, 37, 97, 79]
-    iex> ShittyLinqEx.union(a, b)
-    [1, 37, 73, 97, 79]
-  """
-
-  def union(a, b) do
-      c = a -- b
-      d = b -- a
-      e = c ++ d
-      f = a -- c
-      g = f ++ e
   end
 
   defp where_list([head | tail], fun) do
