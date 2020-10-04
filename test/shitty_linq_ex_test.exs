@@ -36,6 +36,10 @@ defmodule ShittyLinqExTest do
     test "returns nil if source is nil" do
       assert ShittyLinqEx.take(nil, 3) == nil
     end
+
+    test "returns empty list if source is negativa" do
+      assert ShittyLinqEx.take([2, 3, 5, 7], -6) == []
+    end
   end
 
   describe "first/1" do
