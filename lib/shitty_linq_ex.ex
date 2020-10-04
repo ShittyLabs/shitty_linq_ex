@@ -233,6 +233,16 @@ defmodule ShittyLinqEx do
 
   """
 
+  def take(_source, 0), do: []
+  def take(_souce, count) when is_integer(count) and count < 0, do: []
+  def take(nil, _count), do: nil
+  def take([], _count), do: []
+
+  def take(source, count)
+      when is_list(source) and is_integer(count) and count > 0 do
+    take_list(source, count)
+  end
+
   def first(list) when is_list(list), do: List.first(list)
   def first([]), do: nil
   def first(nil), do: nil
@@ -296,6 +306,10 @@ defmodule ShittyLinqEx do
   defp aggregate_range_dec(first, last, seed, func) do
     aggregate_range_dec(first - 1, last, func.(first, seed), func)
   end
+
+  defp take_list([head | _], 1), do: [head]
+  defp take_list([head | tail], counter), do: [head | take_list(tail, counter - 1)]
+  defp take_list([], _counter), do: []
 
   defp where_list([head | tail], fun) do
     case fun.(head) do
