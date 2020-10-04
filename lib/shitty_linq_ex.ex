@@ -177,29 +177,6 @@ defmodule ShittyLinqEx do
   end
 
   @doc """
-  Inverts the order of the elements in a sequence.
-
-  ## Parameters
-
-  - `list`: A sequence of values to reverse.
-
-  ## Returns
-
-  A sequence whose elements correspond to those of the input sequence in reverse order.
-
-  ## Examples
-
-    iex> import ShittyLinqEx, only: [reverse: 1]
-    iex> reverse(["A", "B", "C"])
-    ["C", "B", "A"]
-
-    iex> import ShittyLinqEx, only: [reverse: 1]
-    iex> reverse([42, "orange", ":atom"])
-    [":atom", "orange", 42]
-
-  """
-
-  @doc """
   Determines whether all elements of a sequence satisfy a condition.
 
   ##Parameters
@@ -223,11 +200,34 @@ defmodule ShittyLinqEx do
     ...>  fn number -> rem(number,2) == 1 end)
     true
   """
-  
+
   @spec all(list, fun) :: bool
   def all(list, predicate) when is_list(list) and is_function(predicate,1), do: do_all(list, predicate)
   defp do_all([], _predicate), do: true
   defp do_all([head | tail], predicate), do: predicate.(head) && do_all(tail, predicate)
+
+  @doc """
+  Inverts the order of the elements in a sequence.
+
+  ## Parameters
+
+  - `list`: A sequence of values to reverse.
+
+  ## Returns
+
+  A sequence whose elements correspond to those of the input sequence in reverse order.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [reverse: 1]
+    iex> reverse(["A", "B", "C"])
+    ["C", "B", "A"]
+
+    iex> import ShittyLinqEx, only: [reverse: 1]
+    iex> reverse([42, "orange", ":atom"])
+    [":atom", "orange", 42]
+
+  """
 
   @spec reverse(list) :: list
   def reverse(list) when is_list(list), do: reverse(list, [])
