@@ -233,6 +233,38 @@ defmodule ShittyLinqEx do
 
   """
 
+  @doc """
+  Returns a specified number of contiguous elements from the start of a sequence.
+
+  ## Parameters
+
+  - `source`: A sequence of values to take.
+  - `count`: The number of elements to return.
+
+  ## Returns
+
+  A sequence that contains the specified number of elements from the start of the input sequence.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take(["A", "B", "C"], 2)
+    ["A", "B"]
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take([42, "orange", ":atom"], 7)
+    [42, "orange", ":atom"]
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take([1, 2, 3], 0)
+    []
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take(nil, 5)
+    nil
+
+  """
+
   def take(_source, 0), do: []
   def take(_souce, count) when is_integer(count) and count < 0, do: []
   def take(nil, _count), do: nil
