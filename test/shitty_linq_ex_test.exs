@@ -22,7 +22,7 @@ defmodule ShittyLinqExTest do
     end
 
     test "returns all elements if count is greater than source" do
-      assert ShittyLinqEx.take([2, 3, 5, 7], 6) == [2, 3, 5, 7]
+      assert ShittyLinqEx.take(["A", "B", "C", "D"], 6) == ["A", "B", "C", "D"]
     end
 
     test "returns empty list if count 0" do
