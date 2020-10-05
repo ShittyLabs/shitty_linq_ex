@@ -336,11 +336,11 @@ defmodule ShittyLinqEx do
 
     iex> import ShittyLinqEx, only: [take_last: 2]
     iex> take_last(["A", "B", "C"], 2)
-    ["B", "A"]
+    ["C", "B"]
 
     iex> import ShittyLinqEx, only: [take_last: 2]
-    iex> take_last([42, "orange", ":atom"], 7)
-    [42, "orange", ":atom"]
+    iex> take_last([42, "orange", :atom], 7)
+    [:atom, "orange", 42]
 
     iex> import ShittyLinqEx, only: [take_last: 2]
     iex> take_last([1, 2, 3], 0)
