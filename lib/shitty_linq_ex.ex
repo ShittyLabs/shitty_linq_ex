@@ -153,6 +153,36 @@ defmodule ShittyLinqEx do
   end
 
   @doc """
+  Determines whether all elements of a sequence satisfy a condition.
+
+  ##Parameters
+  - `list`: A list that contains the elements to apply the predicate to.
+  - `funciton`: A function to test each element for a condition.
+
+  ##Returns
+  true if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty; otherwise, false.
+
+  ##Examples
+
+    iex> import ShittyLinqEx, only: [all: 2]
+    iex> all(
+    ...>  ["Barley", "Boots", "Whiskers"],
+    ...>  fn pet -> String.first(pet) == "B" end)
+    false
+
+    iex> import ShittyLinqEx, only: [all: 2]
+    iex> all(
+    ...>  [1, 3, 5, 7, 9],
+    ...>  fn number -> rem(number,2) == 1 end)
+    true
+  """
+
+  @spec all(list, fun) :: bool
+  def all(list, predicate) when is_list(list) and is_function(predicate,1), do: do_all(list, predicate)
+  defp do_all([], _predicate), do: true
+  defp do_all([head | tail], predicate), do: predicate.(head) && do_all(tail, predicate)
+
+  @doc """
   Inverts the order of the elements in a sequence.
   ## Parameters
   - `list`: A sequence of values to reverse.
@@ -222,6 +252,48 @@ defmodule ShittyLinqEx do
   def first([], _func, _value), do: nil
 
   @doc """
+  Returns a specified number of contiguous elements from the start of a sequence.
+
+  ## Parameters
+
+  - `source`: A sequence of values to take.
+  - `count`: The number of elements to return.
+
+  ## Returns
+
+  A sequence that contains the specified number of elements from the start of the input sequence.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take(["A", "B", "C"], 2)
+    ["A", "B"]
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take([42, "orange", ":atom"], 7)
+    [42, "orange", ":atom"]
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take([1, 2, 3], 0)
+    []
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take(nil, 5)
+    nil
+
+  """
+
+  def take(_source, 0), do: []
+  def take(_souce, count) when is_integer(count) and count < 0, do: []
+  def take(nil, _count), do: nil
+  def take([], _count), do: []
+
+  def take(source, count)
+      when is_list(source) and is_integer(count) and count > 0 do
+    take_list(source, count)
+  end
+
+  @doc """
   Filters a sequence of values based on a predicate.
   ## Parameters
   - `source`: an enumerable to filter.
@@ -281,6 +353,10 @@ defmodule ShittyLinqEx do
   def sum([h|t]) do
     h + sum(t)
   end
+  
+  defp take_list([head | _], 1), do: [head]
+  defp take_list([head | tail], counter), do: [head | take_list(tail, counter - 1)]
+  defp take_list([], _counter), do: []
 
   defp where_list([head | tail], fun) do
     case fun.(head) do
