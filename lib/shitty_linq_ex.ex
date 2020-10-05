@@ -400,7 +400,6 @@ defmodule ShittyLinqEx do
   @doc """
   Return the value repeated n times inside a list,
 
-
   ## Parameters
 
   - `value`: a value to repeat.
@@ -408,10 +407,8 @@ defmodule ShittyLinqEx do
 
   ## Returns
 
-  The value itself when count is 1, or a list with the value repeated `count` times, if
+  Returns a list with the value repeated `count` times, if
   value is equal 0 or less it will raise an error
-
-  If `count` is not passed, it will return the value
 
   ## Examples
 
@@ -450,5 +447,21 @@ defmodule ShittyLinqEx do
     end
   end
 
+  @doc """
+  Return the value when no count is passed
+
+  ## Parameters
+
+  - `value`: a value to repeat.
+
+  ## Returns
+
+  The value itself besauce no count was passed
+
+  ## Examples
+  iex> import ShittyLinqEx, only: [repeat: 1]
+  iex> repeat("hi")
+  "hi"
+  """
   def repeat(value), do: value
 end
