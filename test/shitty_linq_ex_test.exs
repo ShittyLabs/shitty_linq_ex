@@ -2,8 +2,30 @@ defmodule ShittyLinqExTest do
   use ExUnit.Case, async: true
   doctest ShittyLinqEx
 
+ describe "all/2" do
+    test "empty list should return true" do
+      assert ShittyLinqEx.all([], fn _ -> true end) == true
+    end
+
+    test "should return false" do
+      assert ShittyLinqEx.all(
+        ["Barley", "Boots", "Whiskers"],
+        fn pet -> String.first(pet) == "B" end) == false
+    end
+
+    test "should return true" do
+      assert ShittyLinqEx.all(
+        [1, 3, 5, 7, 9],
+        fn number -> rem(number,2) == 1 end) == true
+    end
+  end
+
   describe "reverse/1" do
     test "empty list" do
+      assert ShittyLinqEx.reverse([]) == []
+    end
+
+    test "reverse of empty list" do
       assert ShittyLinqEx.reverse([]) == []
     end
 

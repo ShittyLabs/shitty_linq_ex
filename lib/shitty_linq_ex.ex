@@ -177,6 +177,36 @@ defmodule ShittyLinqEx do
   end
 
   @doc """
+  Determines whether all elements of a sequence satisfy a condition.
+
+  ##Parameters
+  - `list`: A list that contains the elements to apply the predicate to.
+  - `funciton`: A function to test each element for a condition.
+
+  ##Returns
+  true if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty; otherwise, false.
+
+  ##Examples
+
+    iex> import ShittyLinqEx, only: [all: 2]
+    iex> all(
+    ...>  ["Barley", "Boots", "Whiskers"],
+    ...>  fn pet -> String.first(pet) == "B" end)
+    false
+
+    iex> import ShittyLinqEx, only: [all: 2]
+    iex> all(
+    ...>  [1, 3, 5, 7, 9],
+    ...>  fn number -> rem(number,2) == 1 end)
+    true
+  """
+
+  @spec all(list, fun) :: bool
+  def all(list, predicate) when is_list(list) and is_function(predicate,1), do: do_all(list, predicate)
+  defp do_all([], _predicate), do: true
+  defp do_all([head | tail], predicate), do: predicate.(head) && do_all(tail, predicate)
+
+  @doc """
   Inverts the order of the elements in a sequence.
 
   ## Parameters
