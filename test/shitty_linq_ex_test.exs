@@ -55,4 +55,14 @@ defmodule ShittyLinqExTest do
       assert ShittyLinqEx.sum([1, 2, 3]) == 6
     end
   end
+  
+  describe "append/1" do
+    test "adds new numeric element to a list" do
+      assert ShittyLinqEx.append([1, 2, 3], 4) == [1, 2, 3, 4]
+    end
+    
+    test "adds new string to a list" do
+      assert ShittyLinqEx.append(["happy", "hacking"], "everybody"]) == ["happy", "hacking", "everybody")
+    end
+  end
 end
