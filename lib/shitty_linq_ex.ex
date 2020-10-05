@@ -247,6 +247,48 @@ defmodule ShittyLinqEx do
   def first([], _func, _value), do: nil
 
   @doc """
+  Returns a specified number of contiguous elements from the start of a sequence.
+
+  ## Parameters
+
+  - `source`: A sequence of values to take.
+  - `count`: The number of elements to return.
+
+  ## Returns
+
+  A sequence that contains the specified number of elements from the start of the input sequence.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take(["A", "B", "C"], 2)
+    ["A", "B"]
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take([42, "orange", ":atom"], 7)
+    [42, "orange", ":atom"]
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take([1, 2, 3], 0)
+    []
+
+    iex> import ShittyLinqEx, only: [take: 2]
+    iex> take(nil, 5)
+    nil
+
+  """
+
+  def take(_source, 0), do: []
+  def take(_souce, count) when is_integer(count) and count < 0, do: []
+  def take(nil, _count), do: nil
+  def take([], _count), do: []
+
+  def take(source, count)
+      when is_list(source) and is_integer(count) and count > 0 do
+    take_list(source, count)
+  end
+
+  @doc """
   Filters a sequence of values based on a predicate.
 
   ## Parameters
@@ -296,6 +338,10 @@ defmodule ShittyLinqEx do
   defp aggregate_range_dec(first, last, seed, func) do
     aggregate_range_dec(first - 1, last, func.(first, seed), func)
   end
+
+  defp take_list([head | _], 1), do: [head]
+  defp take_list([head | tail], counter), do: [head | take_list(tail, counter - 1)]
+  defp take_list([], _counter), do: []
 
   defp where_list([head | tail], fun) do
     case fun.(head) do
