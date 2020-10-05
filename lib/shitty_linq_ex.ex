@@ -416,9 +416,8 @@ defmodule ShittyLinqEx do
   ## Examples
 
     iex> import ShittyLinqEx, only: [repeat: 2]
-
     iex> repeat("Hello there", 10)
-    \n
+
     ["Hello there", "Hello there", "Hello there", "Hello there", "Hello there",
      "Hello there", "Hello there", "Hello there", "Hello there", "Hello there"]
 
@@ -439,13 +438,17 @@ defmodule ShittyLinqEx do
     raise "Count must be 1 or more"
   end
 
-  def repeat(value, 1) do
-    value
+  def repeat(_value, count) when not is_number(count) do
+    raise "Count must be a number"
   end
+
+  def repeat(value, 1), do: value
 
   def repeat(value, count) do
     for _ <- 1..count do
       value
     end
   end
+
+  def repeat(value), do: value
 end
