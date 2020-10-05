@@ -202,7 +202,9 @@ defmodule ShittyLinqEx do
   """
 
   @spec all(list, fun) :: bool
-  def all(list, predicate) when is_list(list) and is_function(predicate,1), do: do_all(list, predicate)
+  def all(list, predicate) when is_list(list) and is_function(predicate, 1),
+    do: do_all(list, predicate)
+
   defp do_all([], _predicate), do: true
   defp do_all([head | tail], predicate), do: predicate.(head) && do_all(tail, predicate)
 
@@ -316,6 +318,14 @@ defmodule ShittyLinqEx do
   def take(source, count)
       when is_list(source) and is_integer(count) and count > 0 do
     take_list(source, count)
+  end
+
+  def take_last(nil, _count), do: nil
+
+  def take_last(source, count) do
+    source
+    |> reverse
+    |> take(count)
   end
 
   @doc """
