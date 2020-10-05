@@ -49,4 +49,8 @@ defmodule ShittyLinqExTest do
       assert ShittyLinqEx.first([4, 2, 3], &>/2, "a") == nil
     end
   end
+  
+  test "finds sum of all elements in a list" do
+    assert ShittyLinqEx.sum([1, 2, 3]) == 6
+  end
 end
