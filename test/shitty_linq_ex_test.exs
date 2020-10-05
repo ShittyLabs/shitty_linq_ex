@@ -50,7 +50,9 @@ defmodule ShittyLinqExTest do
     end
   end
   
-  test "finds sum of all elements in a list" do
-    assert ShittyLinqEx.sum([1, 2, 3]) == 6
-  end
+  describe "sum/1" do
+    test "finds sum of all elements in a list" do
+      assert ShittyLinqEx.sum([1, 2, 3]) == 6
+    end
+   end
 end
