@@ -65,4 +65,14 @@ defmodule ShittyLinqExTest do
       assert ShittyLinqEx.append(["happy", "hacking"], "everybody"]) == ["happy", "hacking", "everybody")
     end
   end
+  
+  describe "intersect/1" do
+    test "finds all common elements across two sets" do
+      assert ShittyLinqEx.intersect([1, 2, 3, 4], [2, 3, 4, 5]) == [2, 3, 4]
+    end
+
+    test "makes sure sets without common elements return null set" do
+      assert ShittyLinqEx.intersect([6, 42, 2], [73, 37, 1]) == []
+    end
+  end
 end
