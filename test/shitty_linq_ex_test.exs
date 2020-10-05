@@ -2,21 +2,23 @@ defmodule ShittyLinqExTest do
   use ExUnit.Case, async: true
   doctest ShittyLinqEx
 
- describe "all/2" do
+  describe "all/2" do
     test "empty list should return true" do
       assert ShittyLinqEx.all([], fn _ -> true end) == true
     end
 
     test "should return false" do
       assert ShittyLinqEx.all(
-        ["Barley", "Boots", "Whiskers"],
-        fn pet -> String.first(pet) == "B" end) == false
+               ["Barley", "Boots", "Whiskers"],
+               fn pet -> String.first(pet) == "B" end
+             ) == false
     end
 
     test "should return true" do
       assert ShittyLinqEx.all(
-        [1, 3, 5, 7, 9],
-        fn number -> rem(number,2) == 1 end) == true
+               [1, 3, 5, 7, 9],
+               fn number -> rem(number, 2) == 1 end
+             ) == true
     end
   end
 
@@ -61,6 +63,32 @@ defmodule ShittyLinqExTest do
 
     test "returns empty list if source is negativa" do
       assert ShittyLinqEx.take([2, 3, 5, 7], -6) == []
+    end
+  end
+
+  describe "take_last/2" do
+    test "returns a list with count elements" do
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], 2) == [3, 2]
+    end
+
+    test "returns all elements if count is greater than source" do
+      assert ShittyLinqEx.take_last(["A", "B", "C", "D"], 6) == ["D", "C", "B", "A"]
+    end
+
+    test "returns empty list if count 0" do
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], 0) == []
+    end
+
+    test "returns empty list if source is empty" do
+      assert ShittyLinqEx.take_last([], 2) == []
+    end
+
+    test "returns nil if source is nil" do
+      assert ShittyLinqEx.take_last(nil, 3) == nil
+    end
+
+    test "returns empty list if source is negativa" do
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], -6) == []
     end
   end
 
