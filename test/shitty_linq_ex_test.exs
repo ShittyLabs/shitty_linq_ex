@@ -68,11 +68,11 @@ defmodule ShittyLinqExTest do
 
   describe "take_last/2" do
     test "returns a list with count elements" do
-      assert ShittyLinqEx.take_last([2, 3, 5, 7], 2) == [7, 5]
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], 2) == [5, 7]
     end
 
     test "returns all elements if count is greater than source" do
-      assert ShittyLinqEx.take_last(["A", "B", "C", "D"], 6) == ["D", "C", "B", "A"]
+      assert ShittyLinqEx.take_last(["A", "B", "C", "D"], 6) == ["A", "B", "C", "D"]
     end
 
     test "returns empty list if count 0" do
