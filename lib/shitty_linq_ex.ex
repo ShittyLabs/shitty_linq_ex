@@ -321,6 +321,47 @@ defmodule ShittyLinqEx do
   end
 
   @doc """
+  Returns a new enumerable collection that contains the last count elements from source.
+
+  ## Parameters
+
+  - `source`: A sequence of values to take.
+  - `count`: The number of elements to take from the end of the collection.
+
+  ## Returns
+
+  A new enumerable collection that contains the last count elements from source.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [take_last: 2]
+    iex> take_last(["A", "B", "C"], 2)
+    ["B", "C"]
+
+    iex> import ShittyLinqEx, only: [take_last: 2]
+    iex> take_last([42, "orange", :atom], 7)
+    [42, "orange", :atom]
+
+    iex> import ShittyLinqEx, only: [take_last: 2]
+    iex> take_last([1, 2, 3], 0)
+    []
+
+    iex> import ShittyLinqEx, only: [take_last: 2]
+    iex> take_last(nil, 5)
+    nil
+
+  """
+
+  def take_last(nil, _count), do: nil
+
+  def take_last(source, count) do
+    source
+    |> reverse()
+    |> take(count)
+    |> reverse()
+  end
+
+  @doc """
   Filters a sequence of values based on a predicate.
 
   ## Parameters

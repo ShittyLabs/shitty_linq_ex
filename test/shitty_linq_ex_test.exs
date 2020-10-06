@@ -66,6 +66,32 @@ defmodule ShittyLinqExTest do
     end
   end
 
+  describe "take_last/2" do
+    test "returns a list with count elements" do
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], 2) == [5, 7]
+    end
+
+    test "returns all elements if count is greater than source" do
+      assert ShittyLinqEx.take_last(["A", "B", "C", "D"], 6) == ["A", "B", "C", "D"]
+    end
+
+    test "returns empty list if count 0" do
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], 0) == []
+    end
+
+    test "returns empty list if source is empty" do
+      assert ShittyLinqEx.take_last([], 2) == []
+    end
+
+    test "returns nil if source is nil" do
+      assert ShittyLinqEx.take_last(nil, 3) == nil
+    end
+
+    test "returns empty list if source is negativa" do
+      assert ShittyLinqEx.take_last([2, 3, 5, 7], -6) == []
+    end
+  end
+
   describe "first/1" do
     test "empty list" do
       assert ShittyLinqEx.first([]) == nil
