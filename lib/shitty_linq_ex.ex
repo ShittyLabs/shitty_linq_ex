@@ -202,7 +202,9 @@ defmodule ShittyLinqEx do
   """
 
   @spec all(list, fun) :: bool
-  def all(list, predicate) when is_list(list) and is_function(predicate,1), do: do_all(list, predicate)
+  def all(list, predicate) when is_list(list) and is_function(predicate, 1),
+    do: do_all(list, predicate)
+
   defp do_all([], _predicate), do: true
   defp do_all([head | tail], predicate), do: predicate.(head) && do_all(tail, predicate)
 
@@ -394,4 +396,72 @@ defmodule ShittyLinqEx do
   defp where_list([], _fun, _index) do
     []
   end
+
+  @doc """
+  Return the value repeated n times inside a list,
+
+  ## Parameters
+
+  - `value`: a value to repeat.
+  - `count`: the number of times that the `value` can be repeated.
+
+  ## Returns
+
+  Returns a list with the value repeated `count` times, if
+  value is equal 0 or less it will raise an error
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [repeat: 2]
+    iex> repeat("Hello there", 10)
+
+    ["Hello there", "Hello there", "Hello there", "Hello there", "Hello there",
+     "Hello there", "Hello there", "Hello there", "Hello there", "Hello there"]
+
+    iex> import ShittyLinqEx, only: [repeat: 2]
+    iex> repeat(%{"map" => "Example", "key" => "value"}, 5)
+    \n
+   [
+   %{"key" => "value", "map" => "Example"},
+   %{"key" => "value", "map" => "Example"},
+   %{"key" => "value", "map" => "Example"},
+   %{"key" => "value", "map" => "Example"},
+   %{"key" => "value", "map" => "Example"}
+   ]
+
+  """
+
+  def repeat(_value, count) when count <= 0 do
+    raise "Count must be 1 or more"
+  end
+
+  def repeat(_value, count) when not is_number(count) do
+    raise "Count must be a number"
+  end
+
+  def repeat(value, 1), do: value
+
+  def repeat(value, count) do
+    for _ <- 1..count do
+      value
+    end
+  end
+
+  @doc """
+  Return the value when no count is passed
+
+  ## Parameters
+
+  - `value`: a value to repeat.
+
+  ## Returns
+
+  The value itself besauce no count was passed
+
+  ## Examples
+  iex> import ShittyLinqEx, only: [repeat: 1]
+  iex> repeat("hi")
+  "hi"
+  """
+  def repeat(value), do: value
 end
