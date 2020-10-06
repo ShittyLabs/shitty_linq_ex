@@ -125,4 +125,62 @@ defmodule ShittyLinqExTest do
       assert ShittyLinqEx.first([4, 2, 3], &>/2, "a") == nil
     end
   end
+
+  describe "repeat/2" do
+    test "string value" do
+      assert ShittyLinqEx.repeat("Hi", 3) == ["Hi", "Hi", "Hi"]
+    end
+
+    test "normal list with strings" do
+      assert ShittyLinqEx.repeat(["hello", "there"], 2) == [
+               ["hello", "there"],
+               ["hello", "there"]
+             ]
+    end
+
+    test "with map" do
+      assert ShittyLinqEx.repeat(%{"this" => "is", "a" => "map"}, 2) == [
+               %{"this" => "is", "a" => "map"},
+               %{"this" => "is", "a" => "map"}
+             ]
+    end
+
+    test "with atom" do
+      assert ShittyLinqEx.repeat(:atom, 3) === [:atom, :atom, :atom]
+    end
+
+    test "with tuple" do
+      assert ShittyLinqEx.repeat({"string", :atom}, 3) === [
+               {"string", :atom},
+               {"string", :atom},
+               {"string", :atom}
+             ]
+    end
+
+    test "with count equal 0" do
+      assert_raise RuntimeError, "Count must be 1 or more", fn ->
+        ShittyLinqEx.repeat("anything", 0)
+      end
+    end
+
+    test "with negative count " do
+      assert_raise RuntimeError, "Count must be 1 or more", fn ->
+        ShittyLinqEx.repeat("anything", -3)
+      end
+    end
+  end
+
+  describe "repeat/1" do
+    test "with number" do
+      assert ShittyLinqEx.repeat(1) == 1
+    end
+
+    test "with string" do
+      assert ShittyLinqEx.repeat("hello") == "hello"
+    end
+
+    test "with tuple" do
+      assert ShittyLinqEx.repeat({"tuple"}) == {"tuple"}
+    end
+  end
 end
