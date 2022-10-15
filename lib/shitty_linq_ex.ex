@@ -180,7 +180,7 @@ defmodule ShittyLinqEx do
 
   ##Parameters
   - `list`: A list that contains the elements to apply the predicate to.
-  - `function`: A function to test each element for a condition.
+  - `predicate`: A function to test each element for a condition.
 
   ##Returns
   true if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty; otherwise, false.
@@ -233,7 +233,7 @@ defmodule ShittyLinqEx do
 
   ## Parameters
   - `list`: A list that contains the elements to apply the predicate to.
-  - `function`: A function to test each element for a condition.
+  - `predicate`: A function to test each element for a condition.
 
   ## Returns
   `true` if the source sequence is not empty and at least one of its elements passes the test in the specified predicate; otherwise, `false`.
@@ -558,4 +558,53 @@ defmodule ShittyLinqEx do
   "hi"
   """
   def repeat(value), do: value
+
+  @doc """
+  Computes the sum of a sequence of numeric values.
+
+  ## Parameters
+  - `list`: A sequence of numeric values to calculate the sum of.
+
+  ## Returns
+  The sum of the values in the sequence.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [sum: 1]
+    iex> sum([])
+    0
+
+    iex> import ShittyLinqEx, only: [sum: 1]
+    iex> sum([1, 1, 2, 3, 5])
+    12
+  """
+  def sum(list) when is_list(list), do: sum(list, fn value -> value end)
+
+  @doc """
+  Computes the sum of the sequence of numeric values that are obtained by
+  invoking a transform function on each element of the input sequence.
+
+  ## Parameters
+  - `list`: A sequence of values that are used to calculate a sum.
+  - `selector`: A transform function to apply to each element.
+
+  ## Returns
+  The sum of the projected values.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [sum: 2]
+    iex> sum(
+    ...>  [ %{ company: "Coho Vineyard", weight: 25.2 },
+    ...>    %{ company: "Lucerne Publishing", weight: 18.7 },
+    ...>    %{ company: "Wingtip Toys", weight: 6.0 },
+    ...>    %{ company: "Adventure Works", weight: 33.8 } ],
+    ...> fn package -> package.weight end)
+    83.7
+  """
+  def sum(list, selector) when is_list(list) and is_function(selector, 1),
+    do: do_sum(list, selector)
+
+  defp do_sum([], _selector), do: 0
+  defp do_sum([head | tail], selector), do: selector.(head) + do_sum(tail, selector)
 end
