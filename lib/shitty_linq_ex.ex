@@ -559,6 +559,41 @@ defmodule ShittyLinqEx do
   """
   def repeat(value), do: value
 
+  @doc ~S"""
+  Projects each element of a sequence into a new form.
+
+  ## Parameters
+  - `list`: A sequence of values to invoke a transform function on.
+  - `selector`: A transform function to apply to each element.
+
+  ## Returns
+  A list whose elements are the result of invoking the transform function on each element of `list`.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [select: 2]
+    iex> select(
+    ...>  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    ...>  fn x -> x * x end)
+    [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+    iex> import ShittyLinqEx, only: [select: 2]
+    iex> select(
+    ...>  ["apple", "banana", "mango", "orange", "passionfruit", "grape"],
+    ...>  fn fruit, index -> "#{index} #{fruit}" end)
+    ["0 apple", "1 banana", "2 mango", "3 orange", "4 passionfruit", "5 grape"]
+  """
+  def select(list, selector) when is_list(list) and is_function(selector, 1),
+    do: select(list, fn element, _index -> selector.(element) end)
+
+  def select(list, selector) when is_list(list) and is_function(selector, 2),
+    do: do_select(list, selector, 0)
+
+  defp do_select([head], selector, index), do: [selector.(head, index)]
+
+  defp do_select([head | tail], selector, index),
+    do: [selector.(head, index) | do_select(tail, selector, index + 1)]
+
   @doc """
   Computes the sum of a sequence of numeric values.
 
