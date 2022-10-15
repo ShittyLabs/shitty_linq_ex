@@ -169,7 +169,6 @@ defmodule ShittyLinqEx do
   ...>  words,
   ...>  fn word, workingSentence -> word <> " " <> workingSentence end)
   "dog lazy the over jumps fox brown quick the"
-
   """
   def aggregate([head | tail], func)
       when is_function(func, 2) do
@@ -181,7 +180,7 @@ defmodule ShittyLinqEx do
 
   ##Parameters
   - `list`: A list that contains the elements to apply the predicate to.
-  - `funciton`: A function to test each element for a condition.
+  - `function`: A function to test each element for a condition.
 
   ##Returns
   true if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty; otherwise, false.
@@ -200,13 +199,67 @@ defmodule ShittyLinqEx do
     ...>  fn number -> rem(number,2) == 1 end)
     true
   """
-
   @spec all(list, fun) :: bool
   def all(list, predicate) when is_list(list) and is_function(predicate, 1),
     do: do_all(list, predicate)
 
   defp do_all([], _predicate), do: true
   defp do_all([head | tail], predicate), do: predicate.(head) && do_all(tail, predicate)
+
+  @doc """
+  Determines whether a sequence contains any elements.
+
+  ## Parameters
+  - `list`: the `list` to check for emptiness.
+
+  ## Returns
+  `true` if the source sequence contains any elements; otherwise, `false`.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [any: 1]
+    iex> any([])
+    false
+
+    iex> import ShittyLinqEx, only: [any: 1]
+    iex> any([1, 3, 5, 7, 9])
+    true
+  """
+  @spec any(list) :: bool
+  def any(list), do: any(list, fn _ -> true end)
+
+  @doc """
+  Determines whether any element of a sequence satisfies a condition.
+
+  ## Parameters
+  - `list`: A list that contains the elements to apply the predicate to.
+  - `function`: A function to test each element for a condition.
+
+  ## Returns
+  `true` if the source sequence is not empty and at least one of its elements passes the test in the specified predicate; otherwise, `false`.
+
+  ## Examples
+
+    iex> import ShittyLinqEx, only: [any: 2]
+    iex> any(
+    ...>  [ %{ name: "Barley", age: 8, vaccinated: true },
+    ...>    %{ name: "Boots", age: 4, vaccinated: false },
+    ...>    %{ name: "Whiskers", age: 1, vaccinated: false } ],
+    ...>  fn pet -> pet.age > 1 && pet.vaccinated == false end)
+    true
+
+    iex> import ShittyLinqEx, only: [any: 2]
+    iex> any(
+    ...>  [1, 3, 5, 7, 9],
+    ...>  fn number -> number == 0 end)
+    false
+  """
+  @spec any(list, fun) :: bool
+  def any(list, predicate) when is_list(list) and is_function(predicate, 1),
+    do: do_any(list, predicate)
+
+  defp do_any([], _predicate), do: false
+  defp do_any([head | tail], predicate), do: predicate.(head) || do_any(tail, predicate)
 
   @doc """
   Inverts the order of the elements in a sequence.
