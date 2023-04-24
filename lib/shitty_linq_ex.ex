@@ -6,20 +6,14 @@ defmodule ShittyLinqEx do
   @doc """
   Applies an accumulator function over a sequence. The specified seed value is used as the initial
   accumulator value, and the specified function is used to select the result value.
-
   ## Parameters
-
   - `source`: an enumerable to aggregate over.
   - `seed`: the initial accumulator value.
   - `func`: an accumulator function to be invoked on each element.
   - `resultSelector`: a function to transform the final accumulator value into the result value.
-
   ## Returns
-
   The transformed final accumulator value.
-
   ## Examples
-
     iex> import ShittyLinqEx, only: [aggregate: 4]
     iex> fruits = ["apple", "mango", "orange", "passionfruit", "grape"]
     iex> aggregate(
@@ -34,7 +28,6 @@ defmodule ShittyLinqEx do
     ...>  end,
     ...>  &String.upcase/1)
     "PASSIONFRUIT"
-
   """
   def aggregate(source, seed, func, resultSelector)
       when is_list(source) and is_function(func, 2) and is_function(resultSelector, 1) do
@@ -81,19 +74,13 @@ defmodule ShittyLinqEx do
   @doc """
   Applies an accumulator function over a sequence.
   The specified seed value is used as the initial accumulator value.
-
   ## Parameters
-
   - `source`: an enumerable to aggregate over.
   - `seed`: the initial accumulator value.
   - `func`: an accumulator function to be invoked on each element.
-
   ## Returns
-
   The final accumulator value.
-
   ## Examples
-
     iex> import ShittyLinqEx, only: [aggregate: 3]
     iex> ints = [4, 8, 8, 3, 9, 0, 7, 8, 2]
     iex> aggregate(
@@ -107,15 +94,12 @@ defmodule ShittyLinqEx do
     ...>    end
     ...>  end)
     6
-
     iex> import ShittyLinqEx, only: [aggregate: 3]
     iex> aggregate(4..1, 1, &*/2)
     24
-
     iex> import ShittyLinqEx, only: [aggregate: 3]
     iex> aggregate(1..3, 1, &+/2)
     7
-
     iex> import ShittyLinqEx, only: [aggregate: 3]
     iex> letters_to_numbers = %{a: 1, b: 2, c: 3}
     iex> aggregate(
@@ -123,7 +107,6 @@ defmodule ShittyLinqEx do
     ...>  [],
     ...>  fn {key, _value}, keys -> [key | keys] end)
     [:c, :b, :a]
-
   """
   def aggregate(source, seed, func)
       when is_list(source) and is_function(func, 2) do
@@ -150,18 +133,12 @@ defmodule ShittyLinqEx do
 
   @doc """
   Applies an accumulator function over a sequence.
-
   ## Parameters
-
   - `source`: an enumerable to aggregate over.
   - `func`: an accumulator function to be invoked on each element.
-
   ## Returns
-
   The final accumulator value.
-
   ## Examples
-
   iex> import ShittyLinqEx, only: [aggregate: 2]
   iex> sentence = "the quick brown fox jumps over the lazy dog"
   iex> words = String.split(sentence)
@@ -263,25 +240,17 @@ defmodule ShittyLinqEx do
 
   @doc """
   Inverts the order of the elements in a sequence.
-
   ## Parameters
-
   - `list`: A sequence of values to reverse.
-
   ## Returns
-
   A sequence whose elements correspond to those of the input sequence in reverse order.
-
   ## Examples
-
     iex> import ShittyLinqEx, only: [reverse: 1]
     iex> reverse(["A", "B", "C"])
     ["C", "B", "A"]
-
     iex> import ShittyLinqEx, only: [reverse: 1]
     iex> reverse([42, "orange", ":atom"])
     [":atom", "orange", 42]
-
   """
 
   @spec reverse(list) :: list
@@ -291,31 +260,22 @@ defmodule ShittyLinqEx do
 
   @doc """
   Returns the first element of a sequence.
-
   ## Parameters
-
   - `list`: A sequence of values of which the first element should be returned.
   - `predicate`: A function to check for each element
   - `value`: A value which will be checked in the predicate function
-
   ## Returns
-
   First value of the input sequence.
-
   ## Examples
-
     iex> import ShittyLinqEx, only: [first: 1]
     iex> first(["A", "B", "C"])
     "A"
-
     iex> import ShittyLinqEx, only: [first: 1]
     iex> first([42, "orange", ":atom"])
     42
-
     iex> import ShittyLinqEx, only: [first: 3]
     iex> first([4, 2, 3], &>/2, 1)
     4
-
   """
 
   def first(list) when is_list(list), do: List.first(list)
@@ -332,6 +292,7 @@ defmodule ShittyLinqEx do
   def first([], _func, _value), do: nil
 
   @doc """
+  Finds the intersection of 2 lists(where they have elements in common)
   Returns a specified number of contiguous elements from the start of a sequence.
 
   ## Parameters
@@ -417,29 +378,42 @@ defmodule ShittyLinqEx do
   @doc """
   Filters a sequence of values based on a predicate.
 
-  ## Parameters
+  ## Examples:
 
+    iex> a = [1, 2, 3, 4]
+    iex> b = [2, 3, 4, 5]
+    iex> c = ShittyLinqEx.intersect(a, b)
+    [2, 3, 4]
+
+    iex> a = [6, 42, 2]
+    iex> b = [73, 37, 1]
+    iex> c = ShittyLinqEx.intersect(a, b)
+    []
+  """
+
+  def intersect(list1, list2) do
+      list3 = list1 -- list2
+      list4 = list1 -- list3
+  end
+
+  @doc """
+  Filters a sequence of values based on a predicate.
+  ## Parameters
   - `source`: an enumerable to filter.
   - `predicate`: a function to test each element for a condition.
-
   ## Returns
-
   An enumerable that contains elements from the input sequence that satisfy the condition.
-
   ## Examples
-
     iex> import ShittyLinqEx, only: [where: 2]
     iex> where(
     ...>  ["apple", "passionfruit", "banana", "mango", "orange", "blueberry", "grape", "strawberry"],
     ...>  fn fruit -> String.length(fruit) < 6 end)
     ["apple", "mango", "grape"]
-
     iex> import ShittyLinqEx, only: [where: 2]
     iex> where(
     ...>  [0, 30, 20, 15, 90, 85, 40, 75],
     ...>  fn number, index -> number <= index * 10 end)
     [0, 20, 15, 40]
-
   """
   def where(source, predicate) when is_list(source) and is_function(predicate, 1) do
     where_list(source, predicate)
@@ -465,6 +439,24 @@ defmodule ShittyLinqEx do
     aggregate_range_dec(first - 1, last, func.(first, seed), func)
   end
 
+  @doc """
+  Finds the sum of all values in a list with numeric elements.
+  
+  ## Examples
+  
+    iex> list = [1, 2, 3]
+    iex> ShittyLinqEx.sum(list)
+    6
+  """
+
+  def sum([]) do
+      0
+  end
+    
+  def sum([h|t]) do
+    h + sum(t)
+  end
+  
   defp take_list([head | _], 1), do: [head]
   defp take_list([head | tail], counter), do: [head | take_list(tail, counter - 1)]
   defp take_list([], _counter), do: []
